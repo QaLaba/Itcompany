@@ -41,6 +41,7 @@ public class ConnectThread extends Thread {
 			ConnectThread thread = new ConnectThread(conPool);
 			logger.log(Level.INFO, "Thread number "+ i+ " is created");
 			logger.log(Level.INFO, "Attempt to start a thread");
+			logger.log(Level.INFO, "Add some log");
 			thread.start();
 		}
 	}
