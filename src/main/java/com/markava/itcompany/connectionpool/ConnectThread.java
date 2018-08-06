@@ -20,8 +20,18 @@ public class ConnectThread extends Thread {
 	}
 
 	public void run() {
-		logger.log(Level.INFO, "ConThread is created");
-		conPool.getConnection();
+		Connection connection = null;
+		Random random = new Random();
+		try {
+			connection = LazyConnectionPool.getInstance().takeConnection();
+			Thread.sleep(1000 + random.nextInt(2000));
+		} catch (SQLException e) {
+			logger.log(Level.ERROR, "Thread error", e);
+		} catch (InterruptedException e) {
+			logger.log(Level.ERROR, "Thread error", e);
+		} finally {
+			LazyConnectionPool.getInstance().releaseConnection(connection);
+		}
 	}
 
 	public static void main(String[] args) {
